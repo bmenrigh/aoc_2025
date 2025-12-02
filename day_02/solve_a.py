@@ -28,7 +28,7 @@ with open(fname, 'r') as lines:
             if hl < ll:
                 hl = (10 ** (len(h) // 2)) - 1
 
-            print(f"{l} to {h} (counting {ll} to {hl})")
+            #print(f"{l} to {h} (counting {ll} to {hl})")
 
             il = int(l)
             ih = int(h)
@@ -39,6 +39,6 @@ with open(fname, 'r') as lines:
 
                 if c >= il and c <= ih:
                     s += c
-                    print(f"invalid id: {c}")
+                    #print(f"invalid id: {c}")
 
 print(f"Sum of all invalid IDs: {s}")
