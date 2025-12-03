@@ -28,7 +28,7 @@ Part 2 redux: `161 ms` (Python 3.12.11) / `25 ms` (PyPy 7.3.19)
 
 ## Day 03: \*\*
 
-**Largest number in a string of numbers such that some digits can be skipped.**
+**Largest number of given length constructable from a string of digits, allowing for some digits to be skipped.**
 
 I spotted the simple greedy algorithm for part 1 almost immediately. For part two, applying induction on the reasoning in part 1 extends the reasoning used for 2-digit numbers to any number of digits. Part 2 is probably computationally infeasible without spotting the greedy algorithm.
 
