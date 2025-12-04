@@ -35,3 +35,14 @@ I spotted the simple greedy algorithm for part 1 almost immediately. For part tw
 Part 1: `10 ms`
 
 Part 2: `10 ms`
+
+
+## Day 04: \*\*
+
+**Count items in grid with fewer than 4 neighbors. Later, see how many items can be removed based on their neighbors, where removable of an item, may make a previously unremovable one now removable.**
+
+Part 2 can be done efficiently by removing an item, and then updating cached neighbor counts only for its 8 neighbors. Once updated, then only checking if any of those 8 neighbors can now be removed. Since removal criteria is localized, the effect of removal is also localized, and this keeps the amount of checking after changes low.
+
+Part 1: `16 ms`
+
+Part 2: `29 ms`
