@@ -39,10 +39,21 @@ Part 2: `10 ms`
 
 ## Day 04: \*\*
 
-**Count items in grid with fewer than 4 neighbors. Later, see how many items can be removed based on their neighbors, where removable of an item, may make a previously unremovable one now removable.**
+**Count items in grid with fewer than 4 neighbors. Later, see how many items can be removed based on their neighbors, where removable of an item may make a previously unremovable one become removable.**
 
 Part 2 can be done efficiently by removing an item, and then updating cached neighbor counts only for its 8 neighbors. Once updated, then only checking if any of those 8 neighbors can now be removed. Since removal criteria is localized, the effect of removal is also localized, and this keeps the amount of checking after changes low.
 
 Part 1: `16 ms`
 
 Part 2: `29 ms`
+
+
+## Day 05: \*\*
+
+**Take list of given numerical ranges like 3-4, 6-10, 7-12, and another list of number, check if the numbers are in the ranges. Later, find the total span of all the ranges (overlaps not counted).**
+
+I did not see an efficient way to do part 1 without first merging overlapping ranges. Once all the ranges are coalesced, binary search can quickly find which range a number may be in. To my surprise, this merging effort ended up instantly solving part 2 which makes the code to my part 1 substantially longer than part 2.
+
+Part 1: `9 ms`
+
+Part 2: `9 ms`
