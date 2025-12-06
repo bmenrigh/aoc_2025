@@ -57,3 +57,14 @@ I did not see an efficient way to do part 1 without first merging overlapping ra
 Part 1: `9 ms`
 
 Part 2: `9 ms`
+
+
+## Day 06: \*\*
+
+**Take a space-separated ASCII table of numbers and mathematical operations and apply the operation in the bottom row to the numbers in the column above it. Later interpret the numbers in the column above not as read row-by-row but read vertically as sub-column of characters within the column.**
+
+There is no opportunity for cleverness in this problem.
+
+Part 1: `13 ms`
+
+Part 2: `16 ms`
