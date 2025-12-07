@@ -68,3 +68,14 @@ There is no opportunity for cleverness in this problem.
 Part 1: `13 ms`
 
 Part 2: `16 ms`
+
+
+## Day 07: \*\*
+
+**Given a grid indicating free space, a downward "beam", and "beam splitters" track how many beam splitters are hit by the beam on the way down. Later, count the total number of unique paths from top to bottom.**
+
+I really liked this problem. It looks like a tool for recursion but it's quite simple to just process row-by-row. Counting the number of unique paths can also be done row-by-row by tracking the number of copies of a beam in each given location on the grid. Then each row propogating that number down or into two copies when all those beams hit a splitter. This approach reminds me of the solution approach to Project Euler's [Problem 18 "Maximum Sum Path I"](https://projecteuler.net/problem=18) and [Problem 67 "Maximum Sum Path II"](https://projecteuler.net/problem=67).
+
+Part 1: `10 ms`
+
+Part 2: `10 ms`
