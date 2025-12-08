@@ -79,3 +79,14 @@ I really liked this problem. It looks like a tool for recursion but it's quite s
 Part 1: `10 ms`
 
 Part 2: `10 ms`
+
+
+## Day 08: \*\*
+
+**Given a list of points in 3-space, connect the closest N to find the largest M connected groups formed. Later, connect N points in order of closest pairs until all N points form one connected group.***
+
+This problem has a very "computer science" feel to it. With 1000 points (the N given in the problem), and 1000 connections (the M given in the problem), it may be possible to find the nearest 1000 pairs without checking the full `O(N^2)` pairs for distance. That said, I'm not sure how to do so efficiently in a way that's guaranteed to be correct. As such, I opted to calculate the distance for all pairs. I'm not happy with the runtime of my solutions. But, without a clear idea for how to improve the algorithm, and the general slowness of python, I've begrudgingly accepted them for now.
+
+Part 1: `501 ms`
+
+Part 2: `552 ms`
