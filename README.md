@@ -90,3 +90,16 @@ This problem has a very "computer science" feel to it. With 1000 points (the N g
 Part 1: `501 ms`
 
 Part 2: `552 ms`
+
+
+## Day 08: \*\*
+
+**Given a set of points, find the largest rectangle defined by diagonally opposite points. For part 2, given a set of points that form a "grid-aligned" looping perimeter of some shape, what is the largest rectangle contained in the shape defined by two diagonally opposite perimeter points.**
+
+For part 1, my key insight was to make a list of every y coordinate for a given x, and every x coordinate for a given y. This allowed quickly finding the widest horizontal and vertical spans available once one corner was chosen.
+
+For part 2, my key insight was to make a list of all horizontal and vertical edges of the perimeter. A box is contained entirely inside of the shape if neither of the two vertical sides of the box cross a horizontal perimeter, and neither of the two horizontal sides of the box cross a vertical perimeter line.
+
+Part 1: `20 ms`
+
+Part 2: `389 ms`
