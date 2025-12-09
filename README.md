@@ -92,7 +92,7 @@ Part 1: `501 ms`
 Part 2: `552 ms`
 
 
-## Day 08: \*\*
+## Day 09: \*\*
 
 **Given a set of points, find the largest rectangle defined by diagonally opposite points. For part 2, given a set of points that form a "grid-aligned" looping perimeter of some shape, what is the largest rectangle contained in the shape defined by two diagonally opposite perimeter points.**
 
