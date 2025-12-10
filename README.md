@@ -103,3 +103,16 @@ For part 2, my key insight was to make a list of all horizontal and vertical edg
 Part 1: `20 ms`
 
 Part 2: `389 ms`
+
+
+## Day 10: \*
+
+** Given a set of vectors as a basis, and a goal vector, find the minimum number of basis vectors needed to sum to the goal vector. For part 1 this is all done essentially mod 2 so the problem reduces to XOR and is equivalent to a 1-dimensional version of "Lights Out". **
+
+For part 1 I knew immediately that this was essentially Lights Out in 1 dimension and that no vector would need to be used more than once. I encoded the vectors as bit fields and used XOR with a depth-limited backtracking search.
+
+For part 2 I modified my search to use vectors and sums rather than integers and XOR. In principle I think the solution is correct but the runtime would be age-of-the-universe levels of bad. Many of the problems have the number of basis vectors matching the dimensionality so in these cases, it's just a system of equations (assuming the all are independent).
+
+I explained the vector problem to ChatGPT and had it write a pure-python Gaussian elimination-based solution. I *strongly* suspect that I've overlooked some nice "trick" because the problem is much simpler than general vectors (the basis vectors are always 0s and 1s).
+
+Part 1: `13ms`
