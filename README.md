@@ -107,7 +107,7 @@ Part 2: `389 ms`
 
 ## Day 10: \*
 
-** Given a set of vectors as a basis, and a goal vector, find the minimum number of basis vectors needed to sum to the goal vector. For part 1 this is all done essentially mod 2 so the problem reduces to XOR and is equivalent to a 1-dimensional version of "Lights Out". **
+**Given a set of vectors as a basis, and a goal vector, find the minimum number of basis vectors needed to sum to the goal vector. For part 1 this is all done essentially mod 2 so the problem reduces to XOR and is equivalent to a 1-dimensional version of "Lights Out".**
 
 For part 1 I knew immediately that this was essentially Lights Out in 1 dimension and that no vector would need to be used more than once. I encoded the vectors as bit fields and used XOR with a depth-limited backtracking search.
 
