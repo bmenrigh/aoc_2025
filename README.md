@@ -116,3 +116,14 @@ For part 2 I modified my search to use vectors and sums rather than integers and
 I explained the vector problem to ChatGPT and had it write a pure-python Gaussian elimination-based solution. I *strongly* suspect that I've overlooked some nice "trick" because the problem is much simpler than general vectors (the basis vectors are always 0s and 1s).
 
 Part 1: `13ms`
+
+
+## Day 11: \*\*
+
+**Given a loop-free directed graph, count all paths from a given starting node to a given ending node. In part 2 the paths must cross through two more designated nodes between the start and end.**
+
+This is a straight-forward dynamic programming problem. For part 2, the two intermediate nodes can be handled by setting a new intermediate end goal for each node in sequence and then multiplying the paths together.
+
+Part 1: `9 ms`
+
+Part 2: `9 ms`
