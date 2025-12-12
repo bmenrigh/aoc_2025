@@ -127,3 +127,14 @@ This is a straight-forward dynamic programming problem. For part 2, the two inte
 Part 1: `9 ms`
 
 Part 2: `9 ms`
+
+
+## Day 12: \*\*
+
+**Given a set of polyominos and a grid size and count for each polyomino piece that must be packed in the grid, determine which grids can be solved and which can't.**
+
+This day is a trick. The impossible-to-solve grids are trivially impossible (pigeon-hole-principle) because the grid contains fewer cells than the number of cells in the pieces required to pack into the grid. For the remaining grids, the amount of extra space available to pack pieces is substantial. No actual packing code is needed.
+
+Part 1: `12 ms`
+
+Part 2 is a free star.
