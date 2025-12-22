@@ -74,7 +74,7 @@ Part 2: `16 ms`
 
 **Given a grid indicating free space, a downward "beam", and "beam splitters" track how many beam splitters are hit by the beam on the way down. Later, count the total number of unique paths from top to bottom.**
 
-I really liked this problem. It looks like a tool for recursion but it's quite simple to just process row-by-row. Counting the number of unique paths can also be done row-by-row by tracking the number of copies of a beam in each given location on the grid. Then each row propogating that number down or into two copies when all those beams hit a splitter. This approach reminds me of the solution approach to Project Euler's [Problem 18 "Maximum Sum Path I"](https://projecteuler.net/problem=18) and [Problem 67 "Maximum Sum Path II"](https://projecteuler.net/problem=67).
+I really liked this problem. It looks like a tool for recursion but it's quite simple to just process row-by-row. Counting the number of unique paths can also be done row-by-row by tracking the number of copies of a beam in each given location on the grid. Then each row propagating that number down or into two copies when all those beams hit a splitter. This approach reminds me of the solution approach to Project Euler's [Problem 18 "Maximum Sum Path I"](https://projecteuler.net/problem=18) and [Problem 67 "Maximum Sum Path II"](https://projecteuler.net/problem=67).
 
 Part 1: `10 ms`
 
@@ -105,7 +105,7 @@ Part 1: `20 ms`
 Part 2: `389 ms`
 
 
-## Day 10: \*
+## Day 10: \*\*
 
 **Given a set of vectors as a basis, and a goal vector, find the minimum number of basis vectors needed to sum to the goal vector. For part 1 this is all done essentially mod 2 so the problem reduces to XOR and is equivalent to a 1-dimensional version of "Lights Out".**
 
@@ -115,7 +115,21 @@ For part 2 I modified my search to use vectors and sums rather than integers and
 
 I explained the vector problem to ChatGPT and had it write a pure-python Gaussian elimination-based solution. I *strongly* suspect that I've overlooked some nice "trick" because the problem is much simpler than general vectors (the basis vectors are always 0s and 1s).
 
+**UPDATE**
+What a journey! I've now solved part 2 with my own code!
+
+My initial search code `solve_b.py` was a typical backtracking search approach (iterative-deepening DFS) and had no hope of completing in a reasonable amount of time.
+
+My second attempt `solve_b_mitm.py` was to use a meet-in-the-middle approach by extending the iterative deepening to search from both ends at the same time. Although this is a **dramatic** speedup, the memory need is greater than 128GB so my system couldn't run it.
+
+My third attempt `solve_b_pidx.py` was to change the searching from per-button to per-index. This approach allows for much more pruning of the search space and in practice was much faster. Even so, the problem was too big and this could would have taken days to complete (and possibly years).
+
+Finally with `solve_b_linalg.py`, I learned the linear algebra to replicate the working solution ChatGPT wrote. I spent some time trying to understand exactly how ChatGPT's code worked, but ultimately abandoned that as I found a number of obvious inefficiencies in it that I wanted to avoid. It paid off as my solution is about 15 times faster that ChatGPT's.
+
+I found the algorithmic mechanics of row reduction rather easy to both understand and program. Unfortunately I didn't understand conceptually what row reduction was *actually doing* for quite some time. I found the "pivot" terminology and explanation ChatGPT spat out quite hard to follow. Only after many bugs and other issues did I finally start to understand how to use the reduced matrix to form solutions. Only once I'd understood the details in my own way did it become easy to get the program correct and fast.
+
 Part 1: `13ms`
+Part 2: `600ms (solve_b_linalg.py)`
 
 
 ## Day 11: \*\*
