@@ -136,15 +136,15 @@ def solve_min(b_v, g_v):
     #print(f"Free columns: {free_c}")
     fcn = len(free_c)
 
-    ub = [] # upper bound of free columns
-    for fc in free_c:
-        ub.append(min([g for i, g in enumerate(g_v) if b_v[fc][i] == 1]))
+    #ub = [] # upper bound of free columns
+    #for fc in free_c:
+    #    ub.append(min([g for i, g in enumerate(g_v) if b_v[fc][i] == 1]))
 
     #print(f"Upper bounds on free cols: {ub}")
 
     min_c = sum(goal_v)
 
-    def try_combo(d, l):
+    def try_combo(d, l, gc):
 
         nonlocal min_c
 
@@ -194,10 +194,13 @@ def solve_min(b_v, g_v):
 
             return
 
-        for i in range(ub[d] + 1):
-            try_combo(d + 1, l + [i])
+        # Compute an ubber bound for how many times we could press this button
+        ub = min([g for i, g in enumerate(gc) if b_v[d][i] == 1])
 
-    try_combo(0, [])
+        for i in range(ub + 1):
+            try_combo(d + 1, l + [i], [g - b_v[d][j] * i for j, g in enumerate(gc)])
+
+    try_combo(0, [], g_v)
 
     return min_c
 
