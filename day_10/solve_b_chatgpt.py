@@ -19,6 +19,21 @@ def button_l_to_v(l, n):
 
     return v
 
+def m_str(m):
+
+    s = "\n"
+
+    for r in m:
+        for c in r:
+            if c.denominator == 1:
+                s += f"{c.numerator:7}"
+            else:
+                f = f"{(c.numerator)}/{(c.denominator)}"
+                s += " " * (7 - len(f)) + f
+
+        s += "\n"
+
+    return s
 
 from fractions import Fraction
 from itertools import product
@@ -58,6 +73,8 @@ def solve_min(goal_v, basis_v):
         mat_row.append(Fraction(goal_v[row]))
         M.append(mat_row)
 
+    #print(f"Reducing M {m_str(M)}")
+
     # Gaussian elimination to RREF
     row = 0
     pivots = []  # list of pivot column indices
@@ -94,6 +111,8 @@ def solve_min(goal_v, basis_v):
 
         pivots.append(col)
         row += 1
+
+    #print(f"Reduced M {m_str(M)}")
 
     # Check for inconsistency: [0 0 ... 0 | nonzero]
     for r in range(d):
@@ -163,6 +182,8 @@ def solve_min(goal_v, basis_v):
 
         return x, sum(x)
 
+    #print(f"Free cols {free_cols}, upper bounds {U}")
+
     # Otherwise, brute-force over the free variables y_s,
     # each in range [0, U[free_cols[s]]].
     ranges = []
@@ -229,6 +250,7 @@ with open(fname, 'r') as lines:
         buttons_v = [button_l_to_v(str_to_l(s), len(goal_v)) for s in chunks[1:(len(chunks) - 1)]]
 
         x, c = solve_min(goal_v, buttons_v)
+        print(f"{c} presses with {x}")
         tot += c
 
 print(f"Total minimum button presses: {tot}")
