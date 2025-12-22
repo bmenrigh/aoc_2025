@@ -116,6 +116,7 @@ For part 2 I modified my search to use vectors and sums rather than integers and
 I explained the vector problem to ChatGPT and had it write a pure-python Gaussian elimination-based solution. I *strongly* suspect that I've overlooked some nice "trick" because the problem is much simpler than general vectors (the basis vectors are always 0s and 1s).
 
 **UPDATE**
+
 What a journey! I've now solved part 2 with my own code!
 
 My initial search code `solve_b.py` was a typical backtracking search approach (iterative-deepening DFS) and had no hope of completing in a reasonable amount of time.
@@ -129,6 +130,7 @@ Finally with `solve_b_linalg.py`, I learned the linear algebra to replicate the 
 I found the algorithmic mechanics of row reduction rather easy to both understand and program. Unfortunately I didn't understand conceptually what row reduction was *actually doing* for quite some time. I found the "pivot" terminology and explanation ChatGPT spat out quite hard to follow. Only after many bugs and other issues did I finally start to understand how to use the reduced matrix to form solutions. Only once I'd understood the details in my own way did it become easy to get the program correct and fast.
 
 Part 1: `13ms`
+
 Part 2: `600ms (solve_b_linalg.py)`
 
 
