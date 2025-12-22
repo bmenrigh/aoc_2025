@@ -50,7 +50,7 @@ def reduce_m(m):
     w = len(rm[0])
     h = len(rm)
 
-    print(f"Reducing {w}x{h} matrix {m_str(rm)}")
+    #print(f"Reducing {w}x{h} matrix {m_str(rm)}")
 
     for c in range(w - 1):
         #print(f"Working on column {c}")
@@ -114,7 +114,7 @@ def reduce_m(m):
         for c in range(w):
             rm[r][c] //= g
 
-    print(f"Reduced matrix: {m_str(rm)}")
+    #print(f"Reduced matrix: {m_str(rm)}")
 
     return rm
 
@@ -122,6 +122,7 @@ def reduce_m(m):
 def solve_min(b_v, g_v):
 
     bn = len(b_v)
+    rows = len(g_v)
     b_v.append(g_v)
 
     b_m = list(map(list, zip(*b_v))) # transpose to column matrix
@@ -129,27 +130,35 @@ def solve_min(b_v, g_v):
     rm = reduce_m(b_m)
 
     free_c = []
-    dep_c = []
+    dep_c = set()
 
-    for r in range(len(g_v)):
+    r_to_fc = [-1] * rows
+
+    pc = 0
+    for r in range(rows):
         fc = -1
-        for nc in range(bn):
+        for nc in range(pc, bn):
             if rm[r][nc] != 0:
+                pc = nc
                 fc = nc
+                r_to_fc[r] = fc
                 break
 
         if fc < 0:
-            print(f"No first column found for row {r}")
+            #print(f"No first column found for row {r}")
             continue
 
-        dep_c.append(fc)
+        dep_c.add(fc)
 
     for c in range(bn):
         if not c in dep_c:
             free_c.append(c)
 
-    print(f"Free columns: {free_c}")
+    #print(f"Free columns: {free_c}")
     fcn = len(free_c)
+
+    if fcn == 0:
+        return sum([rm[r][bn] for r in range(rows)])
 
     min_c = sum(goal_v)
 
@@ -163,13 +172,12 @@ def solve_min(b_v, g_v):
             for i, x in enumerate(l):
                 coef[free_c[i]] = x
 
-            print(f"Finding solution with free column selection {l} ({coef})")
+            #print(f"Finding solution with free column selection {l} ({coef})")
 
-            rt = min(bn, len(g_v))
-            for r in range(rt):
+            for r in range(rows):
 
-                #if r in free_c:
-                #    continue # free column
+                if r_to_fc[r] < 0:
+                    continue # blank row
 
                 x = rm[r][bn]
 
@@ -177,24 +185,14 @@ def solve_min(b_v, g_v):
                     x -= rm[r][i] * coef[i]
 
                 if x < 0:
-                    print(f"Computed x for row {r} was negative ({x})")
+                    #print(f"Computed x for row {r} was negative ({x})")
                     return
 
-                fc = -1
-                for nc in range(bn):
-                    if rm[r][nc] != 0:
-                        fc = nc
-                        break
-
-                if fc < 0:
-                    print(f"No first column found for row {r}")
-                    continue
-
-                if x % rm[r][fc] != 0:
-                    print(f"Computed x for row {r} wasn't an int ({x}/{fc})")
+                if x % rm[r][r_to_fc[r]] != 0:
+                    #print(f"Computed x for row {r} wasn't an int ({x}/{fc})")
                     return
 
-                coef[fc] = x // rm[r][fc]
+                coef[r_to_fc[r]] = x // rm[r][r_to_fc[r]]
 
             t_v = [0] * len(g_v)
             for i in range(bn):
@@ -203,27 +201,45 @@ def solve_min(b_v, g_v):
                         t_v[j] += coef[i]
 
             if t_v != g_v:
-                print(f"Got bogus goal {t_v} for coef {coef}, expected {g_v}")
+                #print(f"Got bogus goal {t_v} for coef {coef}, expected {g_v}")
                 return
             #else:
-                print(f"Got valid solution {t_v} for coef {coef}")
+                #print(f"Got valid solution {t_v} for coef {coef}")
 
             s = sum(coef)
             if s < min_c:
                 min_c = s
-                print(f"New minimal solution {s} with coef {coef}")
+                #print(f"New minimal solution {s} with coef {coef}")
 
             return
 
         # Compute an ubber bound for how many times we could press this button
         ub = min([g for i, g in enumerate(gc) if b_v[free_c[d]][i] == 1])
 
-        print(f"UB for depth {d} is {ub}, previous selections {l} with gc {gc}")
+        #print(f"UB for depth {d} is {ub}, previous selections {l} with gc {gc}")
 
         for i in range(ub + 1):
             try_combo(d + 1, l + [i], [g - b_v[free_c[d]][j] * i for j, g in enumerate(gc)])
 
-    try_combo(0, [], g_v)
+
+    gc = g_v.copy()
+
+    # Any dependent row that doesn't depend on a free column is determined
+    for r in range(rows):
+        if r_to_fc[r] < 0:
+            continue
+
+        if all([rm[r][c] == 0 for c in free_c]):
+            if rm[r][bn] % rm[r][r_to_fc[r]] != 0:
+                print(f"Bug? Fractional determined row {rm[r]}")
+                continue
+
+            x = rm[r][bn] // rm[r][r_to_fc[r]]
+
+            gc = [g - b_v[r_to_fc[r]][j] * x for j, g in enumerate(gc)]
+            #print(f"Row {r} able to reduce gc to {gc}")
+
+    try_combo(0, [], gc)
 
     return min_c
 
@@ -237,7 +253,7 @@ with open(fname, 'r') as lines:
         buttons_v = [button_l_to_v(str_to_l(s), len(goal_v)) for s in chunks[1:(len(chunks) - 1)]]
 
         m = solve_min(buttons_v, goal_v)
-        print(f"{m}")
+        #print(f"{m}")
         tot += m
 
 print(f"Got total button presses: {tot}")
